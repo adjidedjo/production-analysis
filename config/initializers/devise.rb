@@ -6,8 +6,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '32c9b1ecbecec4fa0f303c56b2a8b68359e266c5094c755ef59842d794e8117bce71dd5750fc1267d0ccbc26e908e2bf3acf6904602a5b012729fd9b87d0c97c'
-  config.secret_key = ENV["DEVISE_KEY"] 
+  # config.secret_key = '4663f167f65a5433bfe58afe96e45e623e3c26f69cadc39ff1a35730849e2383ce95e02b0ab52f9bcac448d1e0ea9e3694dc4dd36ec51916bd32fb9682798467'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -35,7 +34,7 @@ Devise.setup do |config|
   # session. If you need permissions, you should implement that in a before filter.
   # You can also supply a hash where the value is a boolean determining whether
   # or not authentication should be aborted when the value is not present.
-  config.authentication_keys = [:username]
+  # config.authentication_keys = [:email]
 
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to the
@@ -47,7 +46,7 @@ Devise.setup do |config|
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
-  config.case_insensitive_keys = [ :email, :username, :password ]
+  config.case_insensitive_keys = [:email]
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
@@ -109,7 +108,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '7f7238ae789685af558cd2beadabc9583283af65d65eb8d33975b00d471c56ecd6115487518bc9ce0a76a913f6bc54f0efd2d1e5a64a216627764689e81f42e4'
+  # config.pepper = '87b8e84f23c3802a39120df19255cfb194c8cdfc75448c5a879628159a41433def046da77d4dfde03ae4c9bc0deed53ba3ea6b46efe88fb98cd7cbfe37fa0096'
 
   # Send a notification email when the user's password is changed
   # config.send_password_change_notification = false
@@ -243,7 +242,7 @@ Devise.setup do |config|
   # config.navigational_formats = ['*/*', :html]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
-  config.sign_out_via = [:delete, :get]
+  config.sign_out_via = :delete
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
