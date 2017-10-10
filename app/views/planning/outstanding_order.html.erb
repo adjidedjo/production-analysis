@@ -75,17 +75,17 @@
               <tbody>
                 <% @out_daily.each do |dp| %>
                 <tr class="gradeX">
-                  <% avg_day = dp.order_in/(24*3) rescue 0 %>
-                  <% avg_month = (dp.order_in/(24*3))*24 rescue 0 %>
+                  <% avg_day = (dp.order_in.to_f/24)*3 rescue 0 %>
+                  <% avg_month = ((dp.order_in.to_f/24)*3)*24 rescue 0 %>
                   <td><%= dp.item_number %></td>
                   <td><%= dp.description %></td>
-                  <td><%= dp.brand %></td>
-                  <td><%= dp.segment1 %></td>
-                  <td><%= dp.order_in %></td>
-                  <td><%= avg_day %></td>
-                  <td><%= avg_month %></td>
-                  <td><%= cpercent(dp.stock_f / dp.buffer) rescue 0  %></td>
-                  <td><%= cpercent(dp.buffer / avg_day) rescue 0 %></td>
+                  <td><center><%= dp.brand %></center></td>
+                  <td><center><%= dp.segment1 %></center></td>
+                  <td><center><%= dp.order_in %></center></td>
+                  <td><center><%= avg_day %></center></td>
+                  <td><center><%= avg_month %></center></td>
+                  <td><center><%= cpercent(dp.stock_f / dp.buffer) rescue 0  %></center></td>
+                  <td><center><%= cpercent(dp.buffer / avg_day) rescue 0 %></center></td>
                 </tr>
                 <% end %>
               </tbody>
