@@ -1,6 +1,6 @@
 class PlanningController < ApplicationController
   
   def outstanding_order
-    @out_daily = OutstandingProduction.all
+    @out_daily = OutstandingProduction.get_outstanding
   end
 end
