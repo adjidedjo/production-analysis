@@ -75,8 +75,8 @@
               <tbody>
                 <% @out_daily.each do |dp| %>
                 <tr class="gradeX">
-                  <% avg_day = (dp.order_in.to_f/24)*3 rescue 0 %>
-                  <% avg_month = ((dp.order_in.to_f/24)*3)*24 rescue 0 %>
+                  <% avg_day = (dp.order_in.to_f/(24*3)).round(2) rescue 0 %>
+                  <% avg_month = ((dp.order_in.to_f/(24*3))*24).round(2) rescue 0 %>
                   <td><%= dp.item_number %></td>
                   <td><%= dp.description %></td>
                   <td><center><%= dp.brand %></center></td>
