@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   # view routes
   get 'planning/outstanding_order'
+  get 'planning/aging_orders'
 
   get '/widgets' => 'widgets#index'
   get '/documentation' => 'documentation#index'

@@ -12,36 +12,80 @@
         // Zero configuration
         //
 
-
-        $('#planning_first').dataTable({
-        'paging':   true,  // Table pagination
-        'ordering': true,  // Column ordering
-        'info':     true,  // Bottom left status text
-        'responsive': true, // https://datatables.net/extensions/responsive/examples/
-        'scrollX': true,
-        'scrollCollapse': true,
-        'columnDefs': [
-            { width: 200, targets: 1 }
-        ],
-        'fixedColumns': true,
-        // Text translation options
-        // Note the required keywords between underscores (e.g _MENU_)
-        "columnDefs": [
-            {
-                "targets": [ 2,3,8,9,10,11 ],
-                "visible": false
-            }
-        ],
-        oLanguage: { sSearch:      'Search:',
-            sLengthMenu:  '_MENU_ records per page',
-            info:         'Showing page _PAGE_ of _PAGES_',
-            zeroRecords:  'Nothing found - sorry',
-            infoEmpty:    'No records available',
-            infoFiltered: '(filtered from _MAX_ total records)'
+        $('#age_outstanding').dataTable({
+            'paging' : true, // Table pagination
+            'ordering' : true, // Column ordering
+            'info' : true, // Bottom left status text
+            'responsive' : true, // https://datatables.net/extensions/responsive/examples/
+            'scrollX' : true,
+            'scrollCollapse' : true,
+            'columnDefs' : [{
+                width : 200,
+                targets : 1
+            }],
+            'fixedColumns' : true,
+            // Text translation options
+            // Note the required keywords between underscores (e.g _MENU_)
+            "columnDefs" : [{
+                "targets" : [1],
+                "visible" : false
+            }],
+            oLanguage : {
+                sSearch : 'Search:',
+                sLengthMenu : '_MENU_ records per page',
+                info : 'Showing page _PAGE_ of _PAGES_',
+                zeroRecords : 'Nothing found - sorry',
+                infoEmpty : 'No records available',
+                infoFiltered : '(filtered from _MAX_ total records)'
             },
             // Datatable Buttons setup
-            dom: '<"html5buttons"B>frtip',
-            buttons:[{
+            dom : '<"html5buttons"B>frtip',
+            buttons : [{
+                extend : 'csv',
+                className : 'btn-sm'
+            }, {
+                extend : 'excel',
+                className : 'btn-sm',
+                title : 'XLS-File'
+            }, {
+                extend : 'pdf',
+                className : 'btn-sm',
+                title : $('title').text()
+            }, {
+                extend : 'print',
+                className : 'btn-sm'
+            }]
+        });
+
+        $('#planning_first').dataTable({
+            'paging' : true, // Table pagination
+            'ordering' : true, // Column ordering
+            'info' : true, // Bottom left status text
+            'responsive' : true, // https://datatables.net/extensions/responsive/examples/
+            'scrollX' : true,
+            'scrollCollapse' : true,
+            'columnDefs' : [{
+                width : 200,
+                targets : 1
+            }],
+            'fixedColumns' : true,
+            // Text translation options
+            // Note the required keywords between underscores (e.g _MENU_)
+            "columnDefs" : [{
+                "targets" : [2, 3, 8, 9, 10, 11],
+                "visible" : false
+            }],
+            oLanguage : {
+                sSearch : 'Search:',
+                sLengthMenu : '_MENU_ records per page',
+                info : 'Showing page _PAGE_ of _PAGES_',
+                zeroRecords : 'Nothing found - sorry',
+                infoEmpty : 'No records available',
+                infoFiltered : '(filtered from _MAX_ total records)'
+            },
+            // Datatable Buttons setup
+            dom : '<"html5buttons"B>frtip',
+            buttons : [{
                 extend : 'csv',
                 className : 'btn-sm'
             }, {
