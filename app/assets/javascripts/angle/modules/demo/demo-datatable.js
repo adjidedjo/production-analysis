@@ -15,9 +15,9 @@
 
         $('#planning_first').dataTable({
         'paging':   true,  // Table pagination
-        'ordering': false,  // Column ordering
+        'ordering': true,  // Column ordering
         'info':     true,  // Bottom left status text
-        'responsive': false, // https://datatables.net/extensions/responsive/examples/
+        'responsive': true, // https://datatables.net/extensions/responsive/examples/
         'scrollX': true,
         'scrollCollapse': true,
         'columnDefs': [
