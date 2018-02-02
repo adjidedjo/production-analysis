@@ -18,8 +18,9 @@ gem 'jquery-ui-rails'
 
 # authentication
 gem 'devise'
-gem 'cancancan'
-gem 'rolify'
+
+#upload csv
+gem "roo", "~> 2.7.0"
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.1'
