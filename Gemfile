@@ -15,13 +15,14 @@ gem 'jquery-ui-rails'
 # and uncomment the following
 # gem 'pg'
 # gem 'thin'
+# gem 'active_model_serializers'
+# gem 'rack-cors'
 
 # authentication
 gem 'devise'
-
-#upload csv
+gem 'cancancan'
+gem 'rolify'
 gem "roo", "~> 2.7.0"
-
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.1'
 # Use Uglifier as compressor for JavaScript assets
