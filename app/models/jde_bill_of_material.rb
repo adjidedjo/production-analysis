@@ -8,7 +8,7 @@ class JdeBillOfMaterial < ActiveRecord::Base
          -- first step, get rows to start with
          select 
            IXKIT BASE, IXKIT, IXLITM, IXITM, 
-           IXQNTY, IXMMCU, IXUM
+           (IXQNTY/100.00)*#{qty}, IXMMCU, IXUM
         from 
           PRODDTA.F3002
         WHERE IXKIT = '#{item_number}' AND IXMMCU LIKE '%11001MT'
