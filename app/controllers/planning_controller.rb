@@ -1,7 +1,9 @@
 class PlanningController < ApplicationController
   
   def upload_for_bom
-    @bom = BillOfMaterial.import(params[:file]) if params[:file].present?
+    if params[:file].present?
+      @bom = BillOfMaterial.import(params[:file])
+    end
   end
   
   def import
@@ -14,6 +16,6 @@ class PlanningController < ApplicationController
   end
   
   def aging_orders
-    @age_daily = OutstandingProduction.aging_order_calculation
+    @age_daily = OutstandingProduction.aging_order_calculation(current_user)
   end
 end
