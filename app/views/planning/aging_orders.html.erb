@@ -24,8 +24,8 @@
                   <th><center>Qty</center></th>
                   <th><center>Order Date</center></th>
                   <th><center>Aging Order(day)</center></th>
-                  <th>Last Status</th>
-                  <th>Branch</th>
+                  <th>Next Status</th>
+                  <th>Orig</th>
                 </tr>
               </thead>
               <tbody>
@@ -40,7 +40,7 @@
                   <td><center><%= dp.order_date %></center></td>
                   <td><center><%= (Date.today - dp.order_date.to_date).to_i %></center></td>
                   <td><%= dp.last_status %></td>
-                  <td><%= dp.branch %></td>
+                  <td><%= dp.originator %></td>
                 </tr>
                 <% end %>
               </tbody>
