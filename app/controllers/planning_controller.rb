@@ -16,6 +16,7 @@ class PlanningController < ApplicationController
   end
   
   def aging_orders
-    @age_daily = OutstandingProduction.aging_order_calculation(current_user)
+    @bp_prod = BranchProduction.all
+    @age_daily = OutstandingProduction.aging_order_calculation(params[:branch]) if params[:branch].present?
   end
 end

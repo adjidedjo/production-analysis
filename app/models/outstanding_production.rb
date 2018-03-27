@@ -8,10 +8,10 @@ class OutstandingProduction < ActiveRecord::Base
     ")
   end
   
-  def self.aging_order_calculation(usr)
+  def self.aging_order_calculation(branch)
     find_by_sql("
       SELECT order_no, last_status, customer, brand, branch, item_number, description, order_date, quantity,
-      short_item, segment1, originator FROM outstanding_orders WHERE branch_desc = '#{usr.branch}' and quantity > 0
+      short_item, segment1, originator FROM outstanding_orders WHERE branch_desc = '#{branch}' and quantity > 0
     ")
   end
 end
