@@ -1,6 +1,22 @@
 <div class="content-heading">
   Aging Orders REPORT <%= Date.today.strftime("%d %B %Y") %>
 </div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Search by Branch Form
+  </div>
+  <div class="panel-body">
+    <%= form_tag(request.fullpath, {method: :get, :class => "form-inline"}) do %>
+    <div class="form-group">
+      <%= select_tag "branch", options_from_collection_for_select(@bp_prod, "branch", "branch_desc", params[:branch]), {class: "form-control"} %>
+    </div>
+    <%= submit_tag 'Search', name: nil, class: "btn btn-info" %>
+    <% end %>
+  </div>
+</div>
+
+<% if params[:branch].present? %>
 <!-- START widgets box-->
 <!-- END widgets box-->
 <div class="row">
@@ -51,3 +67,4 @@
     </div>
   </div>
 </div>
+<% end %>
