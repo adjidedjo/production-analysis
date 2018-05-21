@@ -39,6 +39,7 @@
                   <th><center>ShipTo</center></th>
                   <th><center>Qty</center></th>
                   <th><center>Order Date</center></th>
+                  <th><center>Req Date</center></th>
                   <th><center>Aging Order(day)</center></th>
                   <th>Next Status</th>
                   <th>Orig</th>
@@ -54,6 +55,7 @@
                   <td><center><%= dp.customer %></center></td>
                   <td><center><%= dp.quantity %></center></td>
                   <td><center><%= dp.order_date %></center></td>
+                  <td><center><%= dp.promised_delivery %></center></td>
                   <td><center><%= (Date.today - dp.order_date.to_date).to_i %></center></td>
                   <td><%= dp.last_status %></td>
                   <td><%= dp.originator %></td>
