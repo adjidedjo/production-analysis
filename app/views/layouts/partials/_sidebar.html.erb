@@ -31,17 +31,17 @@
           <li class="sidebar-subnav-header">
             Planning
           </li>
-          <li class="<%= 'active' if controller?('planning') && action?('outstanding_order') %>">
+          <!-- <li class="<%= 'active' if controller?('planning') && action?('outstanding_order') %>">
             <a href="/planning/outstanding_order" title="Outstanding"> <span>Outstanding Order</span> </a>
-          </li>
+          </li> -->
           <li class="<%= 'active' if controller?('planning') && action?('aging_orders') %>">
             <a href="/planning/aging_orders" title="Aging"> <span>Aging Orders</span> </a>
           </li>
         </ul>
       </li>
-      <li class="<%= 'active' if controller?('planning') && action?('upload_for_bom') %>">
+      <!-- <li class="<%= 'active' if controller?('planning') && action?('upload_for_bom') %>">
         <a href="/planning/upload_for_bom" title="bom"> <span>Calculate BOM</span> </a>
-      </li>
+      </li> -->
     </ul>
     <!-- END sidebar nav-->
   </nav>
