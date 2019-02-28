@@ -17,51 +17,16 @@
       class: 'form-control' %>
       <span class="input-group-addon"> <span class="fa fa-calendar"></span> </span>
     </div>
+    <div class="form-group">
+      To:
+    </div>
+    <div id="datetfore" class="input-group date" style="size: 10px;">
+      <%= text_field_tag "to_date",
+      (params[:to_date].present? ? params[:to_date].to_date.strftime("%F") : Date.today),
+      class: 'form-control' %>
+      <span class="input-group-addon"> <span class="fa fa-calendar"></span> </span>
+    </div>
     <%= button_tag 'Export', value: 'xlsx', name: 'format', class: "btn btn-info" %>
     <% end %>
   </div>
 </div>
-<% if params[:start_date].present? %>
-  <div class="row">
-    <div class="col-lg-12">
-      <!-- START content-->
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="panel panel-info">
-            <div class="panel-heading" style="text-align: center">
-              UN-TRACKED PLANNER ITEM NUMBER
-            </div>
-            <div class="panel-body">
-              <table id="table-revenue-products" class="table table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th style="text-align: center;">ITEM_NUMBER</th>
-                    <th style="text-align: center;">SHIP TO</th>
-                    <th style="text-align: center;">PBJM QTY</th>
-                    <th style="text-align: center;">NON PBJM QTY</th>
-                    <th style="text-align: center;">PLANNER</th>
-                  </tr>
-                </thead>
-                <tfoot></tfoot>
-                <tbody>
-                  <% @unlist_plan.each do |fc| %>
-                  <tr class="gradeX">
-                    <td style="text-align: center;"><%= fc.item_number %></td>
-                    <td style="text-align: center;"><%= fc.ship_to %></td>
-                    <td style="text-align: center;"><%= fc.pbjm_qty %></td>
-                    <td style="text-align: center;"><%= fc.qty %></td>
-                    <td style="text-align: center;"><%= fc.ibsrp6 %></td>
-                  </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
-            <div class="panel-footer">
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- END content-->
-    </div>
-  </div>
-<% end %>

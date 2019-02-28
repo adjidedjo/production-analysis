@@ -22,75 +22,32 @@ asac = []
 end
 
 wb.styles do |s|
-  center = s.add_style :sz => 12, :border => Axlsx::STYLE_THIN_BORDER, :alignment => { :horizontal=> :center, :vertical => :center }
-  center2 = s.add_style :sz => 14, :border => Axlsx::STYLE_THIN_BORDER, :alignment => { :horizontal=> :center, :vertical => :center }
-  value = s.add_style :sz => 11, :border => Axlsx::STYLE_THIN_BORDER, :alignment => { :horizontal=> :center, :vertical => :center }
-  column = s.add_style :sz => 12, :border => Axlsx::STYLE_THIN_BORDER, :bg_color => "EFF0F1", :alignment => { :horizontal=> :center, :vertical => :center }
+  center = s.add_style :sz => 12, :alignment => { :horizontal=> :center, :vertical => :center }
+  center2 = s.add_style :sz => 14, :alignment => { :horizontal=> :center, :vertical => :center }
+  value = s.add_style :sz => 11, :alignment => { :horizontal=> :center, :vertical => :center }
+  column = s.add_style :sz => 12, :bg_color => "EFF0F1", :alignment => { :horizontal=> :center, :vertical => :center }
   
   # start worksheets
-  wb.add_worksheet(name: "KASUR BUSA SARUNG") do |sheet|
-    sheet.add_row ["LAPORAN PERBANDINGAN PBJ VS KAPASITAS & QUOTA PRODUKSI"], :style => center2
-    sheet.add_row []
-    sheet.add_row ["QUOTA PBJ-M (ORDER KE BANDUNG) -- ADJUSTMENT --", "KASUR BUSA SARUNG"], :style => [center, center]
-    sheet.add_row ["", "STANDARD", "QTY PBJ", "", "QTY PBJ & STANDARD", "", "TOTAL SELISIH"], :style => center
-    sheet.add_row ["", "", "PBJM", "NON PBJM", "PBJM", "NON PBJM"], :style => center
-    sheet.add_row ["KAPASITAS TOTAL PRODUKSI", "=SUM(B7:B20)","=SUM(C7:C20)","=SUM(D7:D20)",
-      "=SUM(E7:E20)","=SUM(F7:F20)", "=SUM(C6:D6)-SUM(E6:F6)"], :style => column
-    sheet.merge_cells("A1:G1")
-    sheet.merge_cells("A3:A5")
-    sheet.merge_cells("B3:G3")
-    sheet.merge_cells("B4:B5")
-    sheet.merge_cells("C4:D4")
-    sheet.merge_cells("E4:F4")
-    sheet.merge_cells("G4:G5")
-    kbsr.each do |p|
-      quota = Area.get_quotas(p.branch, "KBSR")
-      sheet.add_row [Area.get_area(p.branch), Area.get_quotas(p.branch, "KBSR"), p.pbjm, 
-        p.order_, selisih(quota,p.pbjm), selisih(quota,p.order_), 0], :style => value
-    end
-  end
-  
-  wb.add_worksheet(name: "KASUR BUSA TAPE EDGE") do |sheet|
-    sheet.add_row ["LAPORAN PERBANDINGAN PBJ VS KAPASITAS & QUOTA PRODUKSI"], :style => center2
-    sheet.add_row []
-    sheet.add_row ["QUOTA PBJ-M (ORDER KE BANDUNG) -- ADJUSTMENT --", "KASUR BUSA TAPE EDGE"], :style => [center, center]
-    sheet.add_row ["", "STANDARD", "QTY PBJ", "", "QTY PBJ & STANDARD", "", "TOTAL SELISIH"], :style => center
-    sheet.add_row ["", "", "PBJM", "NON PBJM", "PBJM", "NON PBJM"], :style => center
-    sheet.add_row ["KAPASITAS TOTAL PRODUKSI", "=SUM(B7:B20)","=SUM(C7:C20)","=SUM(D7:D20)",
-      "=SUM(E7:E20)","=SUM(F7:F20)", "=SUM(C6:D6)-SUM(E6:F6)"], :style => column
-    sheet.merge_cells("A1:G1")
-    sheet.merge_cells("A3:A5")
-    sheet.merge_cells("B3:G3")
-    sheet.merge_cells("B4:B5")
-    sheet.merge_cells("C4:D4")
-    sheet.merge_cells("E4:F4")
-    sheet.merge_cells("G4:G5")
-    kbqt.each do |p|
-      quota = Area.get_quotas(p.branch, "KBQT")
-      sheet.add_row [Area.get_area(p.branch), Area.get_quotas(p.branch, "KBQT"), p.pbjm, 
-        p.order_, selisih(quota,p.pbjm), selisih(quota,p.order_), 0], :style => value
-    end
-  end
   
   wb.add_worksheet(name: "HIGH END") do |sheet|
     sheet.add_row ["LAPORAN PERBANDINGAN PBJ VS KAPASITAS & QUOTA PRODUKSI"], :style => center2
     sheet.add_row []
     sheet.add_row ["QUOTA PBJ-M (ORDER KE BANDUNG) -- ADJUSTMENT --", "HIGH END"], :style => [center, center]
-    sheet.add_row ["", "STANDARD", "QTY PBJ", "", "QTY PBJ & STANDARD", "", "TOTAL SELISIH"], :style => center
-    sheet.add_row ["", "", "PBJM", "NON PBJM", "PBJM", "NON PBJM"], :style => center
-    sheet.add_row ["KAPASITAS TOTAL PRODUKSI", "=SUM(B7:B20)","=SUM(C7:C20)","=SUM(D7:D20)",
-      "=SUM(E7:E20)","=SUM(F7:F20)", "=SUM(C6:D6)-SUM(E6:F6)"], :style => column
-    sheet.merge_cells("A1:G1")
+    sheet.add_row ["", "KUOTA /CABANG", "QTY PBJ", "", "SELISIH PBJM & KUOTA", "TOTAL SELISIH PBJM"], :style => center
+    sheet.add_row ["", "", "PBJM", "NON PBJM"], :style => center
+    sheet.add_row ["KAPASITAS TOTAL PRODUKSI", Area.get_quotas_all("HEND"),"=SUM(C7:C20)","=SUM(D7:D20)",
+      "=B6-C6", "=B6-SUM(C6:D6)"], :style => column
+    sheet.merge_cells("A1:F1")
     sheet.merge_cells("A3:A5")
-    sheet.merge_cells("B3:G3")
+    sheet.merge_cells("B3:F3")
     sheet.merge_cells("B4:B5")
     sheet.merge_cells("C4:D4")
-    sheet.merge_cells("E4:F4")
-    sheet.merge_cells("G4:G5")
+    sheet.merge_cells("E4:E5")
+    sheet.merge_cells("F4:F5")
     hend.each do |p|
       quota = Area.get_quotas(p.branch, "HEND")
       sheet.add_row [Area.get_area(p.branch), Area.get_quotas(p.branch, "HEND"), p.pbjm, 
-        p.order_, selisih(quota,p.pbjm), selisih(quota,p.order_), 0], :style => value
+        p.order_, (quota-p.pbjm), (quota-(p.pbjm+p.order_))], :style => value
     end
   end
   
@@ -98,21 +55,21 @@ wb.styles do |s|
     sheet.add_row ["LAPORAN PERBANDINGAN PBJ VS KAPASITAS & QUOTA PRODUKSI"], :style => center2
     sheet.add_row []
     sheet.add_row ["QUOTA PBJ-M (ORDER KE BANDUNG) -- ADJUSTMENT --", "MIDDLE END"], :style => [center, center]
-    sheet.add_row ["", "STANDARD", "QTY PBJ", "", "QTY PBJ & STANDARD", "", "TOTAL SELISIH"], :style => center
-    sheet.add_row ["", "", "PBJM", "NON PBJM", "PBJM", "NON PBJM"], :style => center
-    sheet.add_row ["KAPASITAS TOTAL PRODUKSI", "=SUM(B7:B20)","=SUM(C7:C20)","=SUM(D7:D20)",
-      "=SUM(E7:E20)","=SUM(F7:F20)", "=SUM(C6:D6)-SUM(E6:F6)"], :style => column
-    sheet.merge_cells("A1:G1")
+    sheet.add_row ["", "KUOTA /CABANG", "QTY PBJ", "", "SELISIH PBJM & KUOTA", "TOTAL SELISIH PBJM"], :style => center
+    sheet.add_row ["", "", "PBJM", "NON PBJM"], :style => center
+    sheet.add_row ["KAPASITAS TOTAL PRODUKSI", Area.get_quotas_all("MEND"),"=SUM(C7:C20)","=SUM(D7:D20)",
+      "=B6-C6", "=B6-SUM(C6:D6)"], :style => column
+    sheet.merge_cells("A1:F1")
     sheet.merge_cells("A3:A5")
-    sheet.merge_cells("B3:G3")
+    sheet.merge_cells("B3:F3")
     sheet.merge_cells("B4:B5")
     sheet.merge_cells("C4:D4")
-    sheet.merge_cells("E4:F4")
-    sheet.merge_cells("G4:G5")
+    sheet.merge_cells("E4:E5")
+    sheet.merge_cells("F4:F5")
     mend.each do |p|
       quota = Area.get_quotas(p.branch, "MEND")
       sheet.add_row [Area.get_area(p.branch), Area.get_quotas(p.branch, "MEND"), p.pbjm, 
-        p.order_, selisih(quota,p.pbjm), selisih(quota,p.order_), 0], :style => value
+        p.order_, (quota-p.pbjm), (quota-(p.pbjm+p.order_))], :style => value
     end
   end
   
@@ -120,21 +77,21 @@ wb.styles do |s|
     sheet.add_row ["LAPORAN PERBANDINGAN PBJ VS KAPASITAS & QUOTA PRODUKSI"], :style => center2
     sheet.add_row []
     sheet.add_row ["QUOTA PBJ-M (ORDER KE BANDUNG) -- ADJUSTMENT --", "LOW END"], :style => [center, center]
-    sheet.add_row ["", "STANDARD", "QTY PBJ", "", "QTY PBJ & STANDARD", "", "TOTAL SELISIH"], :style => center
-    sheet.add_row ["", "", "PBJM", "NON PBJM", "PBJM", "NON PBJM"], :style => center
-    sheet.add_row ["KAPASITAS TOTAL PRODUKSI", "=SUM(B7:B20)","=SUM(C7:C20)","=SUM(D7:D20)",
-      "=SUM(E7:E20)","=SUM(F7:F20)", "=SUM(C6:D6)-SUM(E6:F6)"], :style => column
-    sheet.merge_cells("A1:G1")
+    sheet.add_row ["", "KUOTA /CABANG", "QTY PBJ", "", "SELISIH PBJM & KUOTA", "TOTAL SELISIH PBJM"], :style => center
+    sheet.add_row ["", "", "PBJM", "NON PBJM"], :style => center
+    sheet.add_row ["KAPASITAS TOTAL PRODUKSI", Area.get_quotas_all("LEND"),"=SUM(C7:C20)","=SUM(D7:D20)",
+      "=B6-C6", "=B6-SUM(C6:D6)"], :style => column
+    sheet.merge_cells("A1:F1")
     sheet.merge_cells("A3:A5")
-    sheet.merge_cells("B3:G3")
+    sheet.merge_cells("B3:F3")
     sheet.merge_cells("B4:B5")
     sheet.merge_cells("C4:D4")
-    sheet.merge_cells("E4:F4")
-    sheet.merge_cells("G4:G5")
+    sheet.merge_cells("E4:E5")
+    sheet.merge_cells("F4:F5")
     lend.each do |p|
       quota = Area.get_quotas(p.branch, "LEND")
       sheet.add_row [Area.get_area(p.branch), Area.get_quotas(p.branch, "LEND"), p.pbjm, 
-        p.order_, selisih(quota,p.pbjm), selisih(quota,p.order_), 0], :style => value
+        p.order_, (quota-p.pbjm), (quota-(p.pbjm+p.order_))], :style => value
     end
   end
   
@@ -142,21 +99,21 @@ wb.styles do |s|
     sheet.add_row ["LAPORAN PERBANDINGAN PBJ VS KAPASITAS & QUOTA PRODUKSI"], :style => center2
     sheet.add_row []
     sheet.add_row ["QUOTA PBJ-M (ORDER KE BANDUNG) -- ADJUSTMENT --", "DIVAN SORONG"], :style => [center, center]
-    sheet.add_row ["", "STANDARD", "QTY PBJ", "", "QTY PBJ & STANDARD", "", "TOTAL SELISIH"], :style => center
-    sheet.add_row ["", "", "PBJM", "NON PBJM", "PBJM", "NON PBJM"], :style => center
-    sheet.add_row ["KAPASITAS TOTAL PRODUKSI", "=SUM(B7:B20)","=SUM(C7:C20)","=SUM(D7:D20)",
-      "=SUM(E7:E20)","=SUM(F7:F20)", "=SUM(C6:D6)-SUM(E6:F6)"], :style => column
-    sheet.merge_cells("A1:G1")
+    sheet.add_row ["", "KUOTA /CABANG", "QTY PBJ", "", "SELISIH PBJM & KUOTA", "TOTAL SELISIH PBJM"], :style => center
+    sheet.add_row ["", "", "PBJM", "NON PBJM"], :style => center
+    sheet.add_row ["KAPASITAS TOTAL PRODUKSI", Area.get_quotas_all("ASDV"),"=SUM(C7:C20)","=SUM(D7:D20)",
+      "=B6-C6", "=B6-SUM(C6:D6)"], :style => column
+    sheet.merge_cells("A1:F1")
     sheet.merge_cells("A3:A5")
-    sheet.merge_cells("B3:G3")
+    sheet.merge_cells("B3:F3")
     sheet.merge_cells("B4:B5")
     sheet.merge_cells("C4:D4")
-    sheet.merge_cells("E4:F4")
-    sheet.merge_cells("G4:G5")
+    sheet.merge_cells("E4:E5")
+    sheet.merge_cells("F4:F5")
     asdv.each do |p|
       quota = Area.get_quotas(p.branch, "ASDV")
       sheet.add_row [Area.get_area(p.branch), Area.get_quotas(p.branch, "ASDV"), p.pbjm, 
-        p.order_, selisih(quota,p.pbjm), selisih(quota,p.order_), 0], :style => value
+        p.order_, (quota-p.pbjm), (quota-(p.pbjm+p.order_))], :style => value
     end
   end
   
@@ -164,21 +121,21 @@ wb.styles do |s|
     sheet.add_row ["LAPORAN PERBANDINGAN PBJ VS KAPASITAS & QUOTA PRODUKSI"], :style => center2
     sheet.add_row []
     sheet.add_row ["QUOTA PBJ-M (ORDER KE BANDUNG) -- ADJUSTMENT --", "HEADBOARD"], :style => [center, center]
-    sheet.add_row ["", "STANDARD", "QTY PBJ", "", "QTY PBJ & STANDARD", "", "TOTAL SELISIH"], :style => center
-    sheet.add_row ["", "", "PBJM", "NON PBJM", "PBJM", "NON PBJM"], :style => center
-    sheet.add_row ["KAPASITAS TOTAL PRODUKSI", "=SUM(B7:B20)","=SUM(C7:C20)","=SUM(D7:D20)",
-      "=SUM(E7:E20)","=SUM(F7:F20)", "=SUM(C6:D6)-SUM(E6:F6)"], :style => column
-    sheet.merge_cells("A1:G1")
+    sheet.add_row ["", "KUOTA /CABANG", "QTY PBJ", "", "SELISIH PBJM & KUOTA", "TOTAL SELISIH PBJM"], :style => center
+    sheet.add_row ["", "", "PBJM", "NON PBJM"], :style => center
+    sheet.add_row ["KAPASITAS TOTAL PRODUKSI", Area.get_quotas_all("ASHB"),"=SUM(C7:C20)","=SUM(D7:D20)",
+      "=B6-C6", "=B6-SUM(C6:D6)"], :style => column
+    sheet.merge_cells("A1:F1")
     sheet.merge_cells("A3:A5")
-    sheet.merge_cells("B3:G3")
+    sheet.merge_cells("B3:F3")
     sheet.merge_cells("B4:B5")
     sheet.merge_cells("C4:D4")
-    sheet.merge_cells("E4:F4")
-    sheet.merge_cells("G4:G5")
+    sheet.merge_cells("E4:E5")
+    sheet.merge_cells("F4:F5")
     ashb.each do |p|
       quota = Area.get_quotas(p.branch, "ASHB")
       sheet.add_row [Area.get_area(p.branch), Area.get_quotas(p.branch, "ASHB"), p.pbjm, 
-        p.order_, selisih(quota,p.pbjm), selisih(quota,p.order_), 0], :style => value
+        p.order_, (quota-p.pbjm), (quota-(p.pbjm+p.order_))], :style => value
     end
   end
   
@@ -186,21 +143,65 @@ wb.styles do |s|
     sheet.add_row ["LAPORAN PERBANDINGAN PBJ VS KAPASITAS & QUOTA PRODUKSI"], :style => center2
     sheet.add_row []
     sheet.add_row ["QUOTA PBJ-M (ORDER KE BANDUNG) -- ADJUSTMENT --", "ACCESSORIES"], :style => [center, center]
-    sheet.add_row ["", "STANDARD", "QTY PBJ", "", "QTY PBJ & STANDARD", "", "TOTAL SELISIH"], :style => center
-    sheet.add_row ["", "", "PBJM", "NON PBJM", "PBJM", "NON PBJM"], :style => center
-    sheet.add_row ["KAPASITAS TOTAL PRODUKSI", "=SUM(B7:B20)","=SUM(C7:C20)","=SUM(D7:D20)",
-      "=SUM(E7:E20)","=SUM(F7:F20)", "=SUM(C6:D6)-SUM(E6:F6)"], :style => column
-    sheet.merge_cells("A1:G1")
+    sheet.add_row ["", "KUOTA /CABANG", "QTY PBJ", "", "SELISIH PBJM & KUOTA", "TOTAL SELISIH PBJM"], :style => center
+    sheet.add_row ["", "", "PBJM", "NON PBJM"], :style => center
+    sheet.add_row ["KAPASITAS TOTAL PRODUKSI", Area.get_quotas_all("ASAC"),"=SUM(C7:C20)","=SUM(D7:D20)",
+      "=B6-C6", "=B6-SUM(C6:D6)"], :style => column
+    sheet.merge_cells("A1:F1")
     sheet.merge_cells("A3:A5")
-    sheet.merge_cells("B3:G3")
+    sheet.merge_cells("B3:F3")
     sheet.merge_cells("B4:B5")
     sheet.merge_cells("C4:D4")
-    sheet.merge_cells("E4:F4")
-    sheet.merge_cells("G4:G5")
+    sheet.merge_cells("E4:E5")
+    sheet.merge_cells("F4:F5")
     asac.each do |p|
       quota = Area.get_quotas(p.branch, "ASAC")
       sheet.add_row [Area.get_area(p.branch), Area.get_quotas(p.branch, "ASAC"), p.pbjm, 
-        p.order_, selisih(quota,p.pbjm), selisih(quota,p.order_), 0], :style => value
+        p.order_, (quota-p.pbjm), (quota-(p.pbjm+p.order_))], :style => value
+    end
+  end
+  
+  wb.add_worksheet(name: "KASUR BUSA TAPE EDGE") do |sheet|
+    sheet.add_row ["LAPORAN PERBANDINGAN PBJ VS KAPASITAS & QUOTA PRODUKSI"], :style => center2
+    sheet.add_row []
+    sheet.add_row ["QUOTA PBJ-M (ORDER KE BANDUNG) -- ADJUSTMENT --", "KASUR BUSA TAPE EDGE"], :style => [center, center]
+    sheet.add_row ["", "KUOTA /CABANG", "QTY PBJ", "", "SELISIH PBJM & KUOTA", "TOTAL SELISIH PBJM"], :style => center
+    sheet.add_row ["", "", "PBJM", "NON PBJM"], :style => center
+    sheet.add_row ["KAPASITAS TOTAL PRODUKSI", Area.get_quotas_all("KBQT"),"=SUM(C7:C20)","=SUM(D7:D20)",
+      "=B6-C6", "=B6-SUM(C6:D6)"], :style => column
+    sheet.merge_cells("A1:F1")
+    sheet.merge_cells("A3:A5")
+    sheet.merge_cells("B3:F3")
+    sheet.merge_cells("B4:B5")
+    sheet.merge_cells("C4:D4")
+    sheet.merge_cells("E4:E5")
+    sheet.merge_cells("F4:F5")
+    kbqt.each do |p|
+      quota = Area.get_quotas(p.branch, "KBQT")
+      sheet.add_row [Area.get_area(p.branch), Area.get_quotas(p.branch, "KBQT"), p.pbjm, 
+        p.order_, (quota-p.pbjm), (quota-(p.pbjm+p.order_))], :style => value
+    end
+  end
+  
+  wb.add_worksheet(name: "KASUR BUSA SARUNG") do |sheet|
+    sheet.add_row ["LAPORAN PERBANDINGAN PBJ VS KAPASITAS & QUOTA PRODUKSI"], :style => center2
+    sheet.add_row []
+    sheet.add_row ["QUOTA PBJ-M (ORDER KE BANDUNG) -- ADJUSTMENT --", "KASUR BUSA SARUNG"], :style => [center, center]
+    sheet.add_row ["", "KUOTA /CABANG", "QTY PBJ", "", "SELISIH PBJM & KUOTA", "TOTAL SELISIH PBJM"], :style => center
+    sheet.add_row ["", "", "PBJM", "NON PBJM"], :style => center
+    sheet.add_row ["KAPASITAS TOTAL PRODUKSI", Area.get_quotas_all("KBSR"),"=SUM(C7:C20)","=SUM(D7:D20)",
+      "=B6-C6", "=B6-SUM(C6:D6)"], :style => column
+    sheet.merge_cells("A1:F1")
+    sheet.merge_cells("A3:A5")
+    sheet.merge_cells("B3:F3")
+    sheet.merge_cells("B4:B5")
+    sheet.merge_cells("C4:D4")
+    sheet.merge_cells("E4:E5")
+    sheet.merge_cells("F4:F5")
+    kbsr.each do |p|
+      quota = Area.get_quotas(p.branch, "KBSR")
+      sheet.add_row [Area.get_area(p.branch), Area.get_quotas(p.branch, "KBSR"), p.pbjm, 
+        p.order_, (quota-p.pbjm), (quota-(p.pbjm+p.order_))], :style => value
     end
   end
   
