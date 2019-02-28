@@ -19,10 +19,6 @@
             'responsive' : true, // https://datatables.net/extensions/responsive/examples/
             'scrollX' : true,
             'scrollCollapse' : true,
-            'columnDefs' : [{
-                width : 200,
-                targets : 1
-            }],
             'fixedColumns' : true,
             // Text translation options
             // Note the required keywords between underscores (e.g _MENU_)

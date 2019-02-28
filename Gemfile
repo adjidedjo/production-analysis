@@ -18,6 +18,12 @@ gem 'jquery-ui-rails'
 # gem 'active_model_serializers'
 # gem 'rack-cors'
 
+# xlsx
+gem 'rubyzip', '~> 1.1.0'
+gem 'axlsx', '2.1.0.pre'
+gem 'axlsx_rails'
+gem 'zip-zip'
+
 # authentication
 gem 'devise'
 gem 'cancancan'
@@ -68,6 +74,6 @@ end
 # gem 'debugger', group: [:development, :test]
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "bower-rails", "~> 0.9.2"

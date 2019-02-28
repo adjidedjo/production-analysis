@@ -23,6 +23,16 @@ module ApplicationHelper
     end
     nil
 end
+
+  def selisih(a, b)
+    c = a - b
+    if c < 0
+      c = c.abs
+    else
+      c = 0
+    end
+    return c  
+  end
   
   def checking_status(status)
     if status == 'D'

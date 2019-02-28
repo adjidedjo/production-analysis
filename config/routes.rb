@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # view routes
   get 'planning/outstanding_order'
   get 'planning/aging_orders'
+  get 'planning/pbjm_analisis'
   get 'planning/upload_for_bom'
   post 'planning/upload_for_bom'
   post 'planning/import'

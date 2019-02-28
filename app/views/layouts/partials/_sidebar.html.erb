@@ -35,7 +35,10 @@
             <a href="/planning/outstanding_order" title="Outstanding"> <span>Outstanding Order</span> </a>
           </li> -->
           <li class="<%= 'active' if controller?('planning') && action?('aging_orders') %>">
-            <a href="/planning/aging_orders" title="Aging"> <span>Aging Orders</span> </a>
+            <a href="/planning/aging_orders" title="Aging"> <span>Outstanding Orders</span> </a>
+          </li>
+          <li class="<%= 'active' if controller?('planning') && action?('pbjm_analisis') %>">
+            <a href="/planning/pbjm_analisis" title="Aging"> <span>Analisis-PBJM PPC</span> </a>
           </li>
         </ul>
       </li>
