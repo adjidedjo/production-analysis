@@ -13,12 +13,12 @@ class PlanningController < ApplicationController
   
   def upload_for_bom
     if params[:file].present?
-      @bom = BillOfMaterial.import(params[:file])
+      @bom = BillOfMaterial.import(params[:file], current_user.branch)
     end
   end
   
   def import
-    BillOfMaterial.import(params[:file])
+    BillOfMaterial.import(params[:file], current_user.branch)
     redirect_to planning_upload_for_bom_url, notice: 'BOM Has Been Calculated.'
   end
   

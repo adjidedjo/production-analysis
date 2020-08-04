@@ -2,7 +2,7 @@ class JdeBillOfMaterial < ActiveRecord::Base
   establish_connection :jdeoracle
   self.table_name = "proddta.f3002" #im
   
-  def self.count_bom_cunsumtion(item_number, qty)
+  def self.count_bom_cunsumtion(item_number, qty, userbp)
     find_by_sql("
         with recursion_view(BASE, IXKIT, IXLITM, IXITM, IXQNTY, IXMMCU, IXUM) as (
          -- first step, get rows to start with
@@ -11,7 +11,7 @@ class JdeBillOfMaterial < ActiveRecord::Base
            (IXQNTY/100.00)*#{qty}, IXMMCU, IXUM
         from 
           PRODDTA.F3002
-        WHERE IXKIT = '#{item_number}' AND IXMMCU LIKE '%11001%'
+        WHERE IXKIT = '#{item_number}' AND IXMMCU LIKE '%#{userbp}%'
           
         
         union all
@@ -33,7 +33,7 @@ class JdeBillOfMaterial < ActiveRecord::Base
           PRODDTA.F3002  current_level
         where
           current_level.IXKIT = previous_level.IXITM
-          AND current_level.IXMMCU LIKE '%11001%'
+          AND current_level.IXMMCU LIKE '%#{userbp}%'
         
       )
       select 
