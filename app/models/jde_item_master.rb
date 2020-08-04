@@ -3,7 +3,7 @@ class JdeItemMaster < ActiveRecord::Base
   self.table_name = "proddta.f4101" #im
 
   def self.get_short_item(item_number)
-    item = where("imlitm LIKE '#{item_number}%'").first
+    item = where("imlitm LIKE '#{item_number.strip}%'").first
   end
 
   def self.date_to_julian(date)

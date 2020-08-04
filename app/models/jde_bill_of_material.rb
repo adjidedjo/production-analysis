@@ -11,7 +11,7 @@ class JdeBillOfMaterial < ActiveRecord::Base
            (IXQNTY/100.00)*#{qty}, IXMMCU, IXUM
         from 
           PRODDTA.F3002
-        WHERE IXKIT = '#{item_number}' AND IXMMCU LIKE '%11001MT'
+        WHERE IXKIT = '#{item_number}' AND IXMMCU LIKE '%11001%'
           
         
         union all
