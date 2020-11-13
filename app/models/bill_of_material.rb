@@ -12,7 +12,7 @@ class BillOfMaterial < ActiveRecord::Base
     end
     
     sum_items = item.flatten.group_by(&:ixlitm).map{|key, val|
-      {:ixlitm => key, :imdsc => val.first.imdsc1.strip+' '+val.first.imdsc1.strip,:ixum => val.first.ixum, :ixmmcu => val.first.ixmmcu,
+      {:ixlitm => key, :imdsc => val.first.imdsc1.strip+' '+val.first.imdsc2.strip,:ixum => val.first.ixum, :ixmmcu => val.first.ixmmcu,
         :total => val.sum{|v| v.ixqnty.to_f}}}
     return sum_items
   end
