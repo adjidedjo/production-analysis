@@ -7,7 +7,7 @@ class JdeBillOfMaterial < ActiveRecord::Base
     find_by_sql("
       select  DISTINCT(bom.IXITM), im.imlitm, im.imdsc1, im.imdsc2
         from  PRODDTA.F3002 bom LEFT JOIN PRODDTA.F4101 im ON bom.IXITM = im.IMITM 
-        where bom.IXITM = '#{short_item.imitm.to_i}'
+        where bom.IXITM = '#{short_item.imitm.to_i}' and im.imseg4 != 'K'
     ")
   end
   
@@ -29,7 +29,7 @@ class JdeBillOfMaterial < ActiveRecord::Base
       from  recursion_view r
       LEFT JOIN PRODDTA.F4101 im
             ON r.IXKIT = im.imitm
-            WHERE im.imtmpl = 'BJ MATRASS'
+            WHERE im.imtmpl = 'BJ MATRASS' and im.imseg4 != 'K'
             order by 
               r.IXKIT, r.IXITM
     ")
