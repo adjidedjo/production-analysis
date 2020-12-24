@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root :to => 'pages#template'
 
   # view routes
+  get 'planning/get_parent_bom'
   get 'planning/outstanding_order'
   get 'planning/aging_orders'
   get 'planning/pbjm_analisis'

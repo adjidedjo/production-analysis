@@ -2,6 +2,39 @@ class JdeBillOfMaterial < ActiveRecord::Base
   establish_connection :jdeoracle
   self.table_name = "proddta.f3002" #im
   
+  def self.params_bom_detail(kode)
+    short_item = JdeItemMaster.get_short_item(kode)
+    find_by_sql("
+      select  DISTINCT(bom.IXITM), im.imlitm, im.imdsc1, im.imdsc2
+        from  PRODDTA.F3002 bom LEFT JOIN PRODDTA.F4101 im ON bom.IXITM = im.IMITM 
+        where bom.IXITM = '#{short_item.imitm.to_i}'
+    ")
+  end
+  
+  def self.get_parent_bom(kode, bp)
+    short_item = JdeItemMaster.get_short_item(kode)
+    find_by_sql("
+      with recursion_view( BASE, IXKIT, IXITM ) as (
+      select  IXKIT BASE, IXKIT, IXITM      -- ANCHOR leg of recursive query
+        from  PRODDTA.F3002 
+        where IXITM = '#{short_item.imitm.to_i}' AND IXMMCU LIKE '%#{bp}%'
+      
+      union all
+      
+      select f.BASE, e.IXKIT, e.IXITM  -- RECURSIVE leg of recursive query
+        from  PRODDTA.F3002 e, recursion_view f 
+        where e.IXITM = f.IXKIT
+      )
+      select r.BASE, IXKIT, IM.IMLITM, IM.IMDSC1, IM.IMDSC2
+      from  recursion_view r
+      LEFT JOIN PRODDTA.F4101 im
+            ON r.IXKIT = im.imitm
+            WHERE im.imtmpl = 'BJ MATRASS'
+            order by 
+              r.IXKIT, r.IXITM
+    ")
+  end
+  
   def self.count_bom_cunsumtion(item_number, qty, userbp)
     find_by_sql("
         with recursion_view(BASE, IXKIT, IXLITM, IXITM, IXQNTY, IXMMCU, IXUM) as (
@@ -45,5 +78,13 @@ class JdeBillOfMaterial < ActiveRecord::Base
       order by 
         rv.BASE, rv.IXKIT, rv.IXITM
     ")
+  end
+  
+  def self.julian_to_date(jd_date)
+    if jd_date.nil? || jd_date == 0
+      0
+    else
+      Date.parse((jd_date+1900000).to_s, 'YYYYYDDD')
+    end
   end
 end 

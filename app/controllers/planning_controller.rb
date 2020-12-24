@@ -1,5 +1,12 @@
 class PlanningController < ApplicationController
   
+  def get_parent_bom
+    if params[:kode].present?
+      @search_bom = JdeBillOfMaterial.params_bom_detail(params[:kode])
+      @parent_bom = JdeBillOfMaterial.get_parent_bom(params[:kode], current_user.branch)
+    end
+  end
+  
   def pbjm_analisis
     @bp_prod = BranchProduction.all
     # @unlist_plan = Jde.pbjm_unlisted(params[:start_date]) if params[:start_date].present?

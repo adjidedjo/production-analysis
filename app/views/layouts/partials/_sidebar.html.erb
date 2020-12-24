@@ -46,6 +46,9 @@
       <li class="<%= 'active' if controller?('planning') && action?('upload_for_bom') %>">
         <a href="/planning/upload_for_bom" title="bom"> <span>Calculate BOM</span> </a>
       </li>
+      <li class="<%= 'active' if controller?('planning') && action?('get_parent_bom') %>">
+        <a href="/planning/get_parent_bom" title="bom"> <span>Search Parent BOM</span> </a>
+      </li>
     </ul>
     <!-- END sidebar nav-->
   </nav>
