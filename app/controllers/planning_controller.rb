@@ -21,6 +21,9 @@ class PlanningController < ApplicationController
   def upload_for_bom
     if params[:file].present?
       @bom = BillOfMaterial.import(params[:file], current_user.branch)
+      unless @bom.kind_of?(Array)
+        redirect_to planning_upload_for_bom_url, alert: "BOM Gagal dihitung, kode barang #{@bom} tidak terdaftar"
+      end
     end
   end
   
