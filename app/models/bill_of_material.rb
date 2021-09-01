@@ -1,6 +1,7 @@
 class BillOfMaterial < ActiveRecord::Base
   def self.import(file, userbp)
-    spreadsheet = Roo::Spreadsheet.open(file.path)
+    spreadsheet = Roo::CSV.new(file.path, csv_options: {encoding: Encoding::ISO_8859_1})
+    #spreadsheet = Roo::Spreadsheet.open(file.path, { csv_options: { encoding: 'bom|utf-8' } })
     header = spreadsheet.row(1)
     item = []
     (2..spreadsheet.last_row).each do |i|
