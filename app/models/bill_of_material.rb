@@ -10,13 +10,13 @@ class BillOfMaterial < ActiveRecord::Base
       if short_item.nil?
         return row["item_number"]
       end
-      unless userbp == '11003'
-        plan = short_item.imprp4.strip == 'KB' ? '2' : '1'
-        userbpplan = userbp + plan
-      else
-        userbpplan = userbp
-      end
-      item << JdeBillOfMaterial.count_bom_cunsumtion(short_item.imitm.to_i, row["qty"], userbpplan)
+      # unless userbp == '11003'
+      #   plan = short_item.imprp4.strip == 'KB' ? '2' : '1'
+      #   userbpplan = userbp + plan
+      # else
+      #   userbpplan = userbp
+      # end
+      item << JdeBillOfMaterial.count_bom_cunsumtion(short_item.imitm.to_i, row["qty"], row["branch_plan"])
     end
     
     sum_items = item.flatten.group_by(&:ixlitm).map{|key, val|
