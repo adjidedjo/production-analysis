@@ -22,7 +22,13 @@ class PlanningController < ApplicationController
     if params[:file].present?
       @bom = BillOfMaterial.import(params[:file], current_user.branch)
       unless @bom.kind_of?(Array)
-        redirect_to planning_upload_for_bom_url, alert: "BOM Gagal dihitung, kode barang #{@bom} tidak terdaftar"
+        if @bom == "over_limit"
+          redirect_to planning_upload_for_bom_url, alert: "BOM Gagal dihitung, total melebihi 300 kode barang"
+        elsif (@bom.is_a? Integer)
+          redirect_to planning_upload_for_bom_url, alert: "BOM Gagal dihitung, Isi Branch Plan di kolom #{@bom}"
+        else
+          redirect_to planning_upload_for_bom_url, alert: "BOM Gagal dihitung, kode barang #{@bom} tidak terdaftar"
+        end
       end
     end
   end

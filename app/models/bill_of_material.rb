@@ -4,18 +4,18 @@ class BillOfMaterial < ActiveRecord::Base
     #spreadsheet = Roo::Spreadsheet.open(file.path, { csv_options: { encoding: 'bom|utf-8' } })
     header = spreadsheet.row(1)
     item = []
+    if spreadsheet.last_row > 301
+      return "over_limit"
+    end
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
+      if row["branch_plan"].nil?
+        return i
+      end
       short_item = JdeItemMaster.get_short_item(row["item_number"])
       if short_item.nil?
         return row["item_number"]
       end
-      # unless userbp == '11003'
-      #   plan = short_item.imprp4.strip == 'KB' ? '2' : '1'
-      #   userbpplan = userbp + plan
-      # else
-      #   userbpplan = userbp
-      # end
       item << JdeBillOfMaterial.count_bom_cunsumtion(short_item.imitm.to_i, row["qty"], row["branch_plan"])
     end
     
