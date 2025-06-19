@@ -68,7 +68,7 @@ class JdeBillOfMaterial < ActiveRecord::Base
           current_level.IXKIT = previous_level.IXITM
           AND current_level.IXMMCU LIKE '%#{userbp}%'
           AND current_level.IXFTRP > 0
-          AND current_level.IXEFFT >= TO_CHAR(SYSDATE, 'J')
+          AND current_level.IXEFFT >= '%#{date_to_julian(Date.today)}'
         
       )
       select 
@@ -88,5 +88,10 @@ class JdeBillOfMaterial < ActiveRecord::Base
     else
       Date.parse((jd_date+1900000).to_s, 'YYYYYDDD')
     end
+  end
+
+  def self.date_to_julian(date)
+    date = date.to_date
+    1000*(date.year-1900)+date.yday
   end
 end 
