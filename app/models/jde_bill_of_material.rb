@@ -68,7 +68,7 @@ class JdeBillOfMaterial < ActiveRecord::Base
           current_level.IXKIT = previous_level.IXITM
           AND current_level.IXMMCU LIKE '%#{userbp}%'
           AND current_level.IXFTRP > 0
-          AND current_level.IXEFFT >= '%#{date_to_julian(Date.today)}'
+          AND current_level.IXEFFT >= '#{date_to_julian(Date.today)}'
         
       )
       select 
