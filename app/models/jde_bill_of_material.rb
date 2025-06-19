@@ -67,6 +67,7 @@ class JdeBillOfMaterial < ActiveRecord::Base
         where
           current_level.IXKIT = previous_level.IXITM
           AND current_level.IXMMCU LIKE '%#{userbp}%'
+          AND current_level.IXEFFT >= TO_CHAR(SYSDATE, 'J')
         
       )
       select 
