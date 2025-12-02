@@ -67,7 +67,6 @@ class JdeBillOfMaterial < ActiveRecord::Base
         where
           current_level.IXKIT = previous_level.IXITM
           AND current_level.IXMMCU LIKE '%#{userbp}%'
-        
       )
       select 
         rv.BASE, rv.IXKIT, rv.IXLITM, rv.IXITM, rv.IXQNTY, rv.IXMMCU, rv.IXUM, im.IMDSC1, im.IMDSC2
