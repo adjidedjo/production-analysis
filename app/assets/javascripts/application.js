@@ -9,4 +9,5 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require bootstrap-select/dist/js/bootstrap-select.min
+//= require migration_notice
 //= require_tree ./angle/

@@ -52,6 +52,10 @@
       <footer>
         <%= render partial: "layouts/partials/footer" %>
       </footer>
+
+      <!-- Modal Notifikasi Migrasi -->
+      <%= render partial: "shared/migration_notice_modal" %>
+
       <% else %>
       <%= render partial: "devise/sessions/new" %>
       <% end %>
